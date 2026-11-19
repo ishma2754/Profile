@@ -1,55 +1,50 @@
+import { BoxLabel } from "@/components/BoxLabel";
 import { site } from "@/content/site";
 
 export function Hero() {
   return (
-    <section
-      id="intro"
-      className="relative overflow-hidden bg-bg text-ink"
-      aria-labelledby="hero-heading"
-    >
-      <div className="pointer-events-none absolute inset-0 grain" aria-hidden />
-      <div className="relative mx-auto flex min-h-[88vh] w-full max-w-layout flex-col justify-between px-section-x py-section-y-sm md:px-section-x-lg md:py-section-y">
-        <header className="flex items-center justify-between">
-          <p className="font-display text-[1.15rem] tracking-[0.08em] uppercase">
-            {site.name}
-          </p>
-          <a
-            href={`mailto:${site.email}`}
-            className="font-body text-label uppercase tracking-[0.16em] text-ink-muted transition-colors hover:text-ink"
-          >
-            Contact
-          </a>
-        </header>
-
-        <div className="mt-stack-lg flex max-w-4xl flex-col gap-stack">
+    <section id="intro" className="relative border-b border-line" aria-labelledby="hero-heading">
+      <BoxLabel>Home</BoxLabel>
+      <div className="px-section-x pb-8 pt-6 md:px-section-x-lg md:pt-8">
+        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(16rem,22rem)] lg:gap-12">
           <h1
             id="hero-heading"
-            className="font-display text-hero leading-[0.92] tracking-[-0.02em] uppercase"
+            className="font-body text-[clamp(2.7rem,5.4vw,4.6rem)] font-semibold leading-[0.96] tracking-[-0.045em]"
           >
-            {site.headline}
+            {site.headline}{" "}
+            <span className="text-ink-muted">{site.headlineRest}</span>
           </h1>
-          <p className="max-w-md font-body text-body leading-relaxed text-ink-muted">
-            {site.oneLiner}
-          </p>
-          <div className="mt-stack flex flex-wrap gap-stack">
-            <a
-              href="#projects"
-              className="inline-flex items-center justify-center rounded-control bg-ink px-6 py-3 font-body text-label uppercase tracking-[0.14em] text-ink-on-dark transition-opacity hover:opacity-80"
-            >
-              See projects
-            </a>
-            <a
-              href={`mailto:${site.email}`}
-              className="inline-flex items-center justify-center rounded-control border border-line px-6 py-3 font-body text-label uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-ink-on-dark"
-            >
-              Get in touch
-            </a>
+          <div className="lg:pb-2">
+            <p className="max-w-md font-body text-body leading-relaxed text-ink-muted">{site.aside}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="#experience"
+                className="inline-flex items-center gap-2 rounded-control bg-accent px-4 py-2.5 font-body text-body-sm text-accent-ink"
+              >
+                View selected work
+                <span aria-hidden>↗</span>
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-control border border-line bg-bg px-4 py-2.5 font-body text-body-sm"
+              >
+                Contact
+                <span aria-hidden>↗</span>
+              </a>
+              {site.resume ? (
+                <a
+                  href={site.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-control border border-line bg-bg px-4 py-2.5 font-body text-body-sm"
+                >
+                  Resume
+                  <span aria-hidden>↗</span>
+                </a>
+              ) : null}
+            </div>
           </div>
         </div>
-
-        <p className="mt-stack-lg font-body text-label uppercase tracking-[0.18em] text-ink-muted">
-          Portfolio / 2026
-        </p>
       </div>
     </section>
   );

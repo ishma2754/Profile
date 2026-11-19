@@ -5,6 +5,7 @@
   --theme-* variables on :root from layout.tsx. Map them here for Tailwind.
 */
 @theme inline {
+  --color-canvas: var(--theme-canvas);
   --color-bg: var(--theme-bg);
   --color-bg-elevated: var(--theme-bg-elevated);
   --color-bg-dark: var(--theme-bg-dark);
@@ -16,6 +17,7 @@
   --color-line-soft: var(--theme-line-soft);
   --color-line-on-dark: var(--theme-line-on-dark);
   --color-accent: var(--theme-accent);
+  --color-accent-ink: var(--theme-accent-ink);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
@@ -54,9 +56,38 @@ html {
 }
 
 body {
-  background: var(--theme-bg);
   color: var(--theme-ink);
   font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Hand cursor on every clickable control. Text keeps the normal caret. */
+a[href],
+button,
+[role="button"],
+[role="tab"],
+summary {
+  cursor: pointer;
+}
+
+
+.ruled-sides {
+  background-color: var(--theme-bg);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 5px,
+    var(--theme-line-soft) 5px,
+    var(--theme-line-soft) 6px
+  );
+  padding-left: 0.85rem;
+  padding-right: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .ruled-sides {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 .grain,
@@ -82,14 +113,92 @@ body {
   }
 }
 
-.marquee-track {
+.marquee-track,
+.marquee-reverse {
   animation: marquee-rtl var(--theme-marquee-duration) linear infinite;
   will-change: transform;
 }
 
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+.tech-fade {
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+}
+
+.hero-reel {
+  animation: marquee-rtl 22s linear infinite;
+  will-change: transform;
+}
+
+@keyframes image-loop-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.image-loop-x {
+  animation: image-loop-x 40s linear infinite;
+  will-change: transform;
+}
+
+.image-loop-x:hover {
+  animation-play-state: paused;
+}
+
+.nav-pill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--theme-ink);
+  background: transparent;
+}
+
+.nav-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--theme-ink);
+  transform: translateX(-102%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.nav-pill:hover::before,
+.nav-pill:focus-visible::before {
+  transform: translateX(0);
+}
+
+.nav-pill:hover,
+.nav-pill:focus-visible {
+  color: var(--theme-ink-inverse);
+  border-color: var(--theme-ink);
+}
+
+.nav-pill-solid {
+  background: var(--theme-ink);
+  color: var(--theme-ink-on-dark);
+  border-color: var(--theme-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .marquee-reverse,
+  .hero-reel,
+  .image-loop-x {
     animation: none;
     transform: none;
+  }
+
+  .project-shots {
+    overflow-x: auto;
+  }
+
+  .nav-pill::before {
+    transition: none;
   }
 }
